@@ -2,6 +2,17 @@ let url = 'https://poloniex.com/public?command=returnCurrencies';
 async function getData() {
     let request = await fetch(url);
     let json = await request.json().catch();
+      showCurrencies(json);
+      
+}
+
+
+
+getData();
+
+
+
+function showCurrencies(json){
     $(function () {
     
         let table = $('#mainTable');
@@ -14,11 +25,14 @@ async function getData() {
                 + json[k].currencyType + '</td><td>'
                 + json[k].txFee + '</td><td>'
                 + json[k].minConf + '</td>'+
-                '<td><button type="button" class="btn btn-dark" onclick="Delete()">Delete</button></td></tr>/tbody>');
+                '<td><button id="'+json[k].id+'" type="button" class="btn btn-dark" >Delete</button></td></tr>/tbody>');
+                
         }
+       
         table.append(str);
-    });
-    return json;
+        }); 
 }
 
-getData();
+$('button').click(function (id) { 
+    console.log('hello');    
+});
