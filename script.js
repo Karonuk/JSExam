@@ -41,6 +41,14 @@ function showCurrencies(json){
         }); 
 }
 
+$(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#mainTable tbody tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
 // function Delete(json,id){
 //     for (k in json){
 //         if(json[k].id==id){
