@@ -2,8 +2,8 @@ let url = 'https://poloniex.com/public?command=returnCurrencies';
 async function getData() {
     let request = await fetch(url);
     let json = await request.json().catch();
-      showCurrencies(json);
-      
+    showCurrencies(json);
+
 }
 
 
@@ -12,43 +12,43 @@ getData();
 
 
 
-function showCurrencies(json){
+function showCurrencies(json) {
     $(function () {
-    
+
         let table = $('#mainTable');
-        let str=[];
+        let str = [];
         for (let k in json) {
-            str.push( '<tbody><tr><td id="id" scope="row">'
+            str.push('<tbody><tr><td id="id" scope="row">'
                 + json[k].id + '</td><td>'
-                + k + '</td><td>'
+                + k + '</td><td id="name">'
                 + json[k].name + '</td><td>'
                 + json[k].humanType + '</td><td>'
                 + json[k].currencyType + '</td><td>'
                 + json[k].txFee + '</td><td>'
-                + json[k].minConf + '</td>'+
+                + json[k].minConf + '</td>' +
                 '<td><button  type="button" class="btn btn-dark" >Delete</button></td></tr>/tbody>');
-                
-        }     
-       
+
+        }
+
         table.append(str);
 
-        $("button").click(function (e) {                       
-            let tr=$(this).parent().parent();
+        $("button").click(function (e) {
+            let tr = $(this).parent().parent();
             tr.text('');
-            
+
             // Delete(json,id);
         });
-        }); 
+    });
 }
 
 $(document).ready(function(){
-    $("#myInput").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#mainTable tbody tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
-    });
-  });
+        $("#myInput").on("keyup", function() {
+            let value = $(this).val().toLowerCase();
+            $("#mainTable tbody tr ").filter(function() {
+              $(this).toggle($(this).children('#name').text().toLowerCase().indexOf(value) > -1);       
+            });
+          });  
+});
 // function Delete(json,id){
 //     for (k in json){
 //         if(json[k].id==id){
